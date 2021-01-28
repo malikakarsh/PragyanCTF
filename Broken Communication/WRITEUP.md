@@ -1,11 +1,12 @@
-#Broken Communication
+# Broken Communication
 
-##The first part of it is a variant of oracle LSB attack.
+## The first part of it is a variant of oracle LSB attack.
+
 Here the cipher text can be decrypted in len(plainText) i.e the length of the flag. How so ever here the logic to be applied is to set up a `while(True)` and iterate through the cipher text until we get the flag.
 
 The main attack is as follows:
 
-```
+```python
 flag = "1"  # The last bit obtained is 1 (when you decrypt for the very first time.)
 for i in range(1,136):
 	p,q,e,d,t,n = keyGen()  # To solve this problem we do not require p,q and it would not be mentioned too.
@@ -23,7 +24,7 @@ for i in range(1,136):
 
 The encrypt, decrypt & keyGen function used here are:
 
-```
+```python
 from Crypto.Util.number import getPrime, inverse, bytes_to_long, long_to_bytes, GCD
 from Crypto.Util import number
 
@@ -52,7 +53,7 @@ The first part is ideated from: `https://github.com/ashutosh1206/Crypton/tree/ma
 
 ##The second part of it is weiner attack. Factorize n and get d to decrypt the cipher to get the flag.
 
-```
+```python
 import owiener
 d = owiener.attack(e, n)
 
