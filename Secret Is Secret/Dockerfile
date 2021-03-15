@@ -8,13 +8,13 @@ RUN useradd -m p_ctf && \
 
 RUN echo -e "admin1     bm90V29ya2luZw==\nadmin2       aXRzQXNlY3JldA==\nadmin3      d3JvbmdQYXNzd29yZA==" >> /etc/passwd && chmod 600 /etc/shadow
 
-RUN mkdir /var/www/html/admin
+RUN mkdir /var/www/html/webadmin
 
 COPY index.html /var/www/html
 
 COPY hacker.jpeg /var/www/html
 
-COPY index.php /var/www/html/admin
+COPY index.php /var/www/html/webadmin
 
 RUN chmod -R 655 /var
 
