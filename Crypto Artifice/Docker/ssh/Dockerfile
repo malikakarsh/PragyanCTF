@@ -18,7 +18,8 @@ RUN chmod +x /root/startup.sh && \
     sed -i "s/username/$USERNAME/g" /etc/ssh/sshd_config && \
     useradd -m $USERNAME && \
     echo "root:$ROOT_PASSWORD" | chpasswd && \
-    echo "$USERNAME:$USER_PASSWORD" | chpasswd
+    echo "$USERNAME:$USER_PASSWORD" | chpasswd && \
+    apt-get install python3 -y
 
 USER $USERNAME
 
@@ -36,6 +37,14 @@ RUN mkdir .ssh && \
 USER root
 
 WORKDIR /root
+
+COPY shell.py /home
+
+RUN sed -i "s/sshUser/$USERNAME/g" /home/shell.py && \
+    chmod +x /home/shell.py && \
+    chown $USERNAME:$USERNAME /home/$USERNAME/pic1.png && chown $USERNAME:$USERNAME /home/$USERNAME/pic2.png && \
+    chmod 755 /home/$USERNAME/pic1.png && chmod 755 /home/$USERNAME/pic2.png && \
+    usermod --shell /home/shell.py $USERNAME 
 
 ENTRYPOINT ["/bin/bash"]
 
